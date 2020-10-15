@@ -1,20 +1,22 @@
 import pandas as pd
 
 
-# wczytanie kolumn
-df = pd.read_csv("train.tsv", delimiter='\t',
+#headers
+df = pd.read_csv(r'C:\Users\Dell\Desktop\ML\first-assignment-master\first-assignment-master\train.tsv',
+                 delimiter='\t',
                  names=["Price", "Number_Of_Rooms", "Area", "Floor_Number", "Address", "Description"])
 
-# średnia za metr
+# price per meter calc
 df["Price_per_meter"] = df["Price"]/df["Area"]
 
-# selekcja
-pokoje = df["Number_Of_Rooms"] >= 3
-cena = df["Price_per_meter"] < df["Price_per_meter"].mean()
+# conditions
+cond1 = df["Number_Of_Rooms"] >= 3
+cond2 = df["Price_per_meter"] < df["Price_per_meter"].mean()
 
-# stworzenie DataFrame z selekcji
-df2 = pd.DataFrame(df[pokoje & cena], columns=["Number_Of_Rooms", "Price", "Price_per_meter"])
+# DataFrame conditions
+df2 = pd.DataFrame(df[cond1 & cond2], columns=["Number_Of_Rooms", "Price", "Price_per_meter"])
 
-# zapisanie csv
+
+# save as csv
 with open('out1.csv', 'w', encoding="utf-8") as csvfile:
     df2.to_csv(csvfile, index=False, line_terminator='\n')

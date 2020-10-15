@@ -1,15 +1,15 @@
 import pandas as pd
 
-# wczytanie pliku
-df_schema = pd.read_csv("survey_results_schema.csv")
-df_public = pd.read_csv("survey_results_public.csv",
-                        usecols=["Respondent", "Age", "WorkWeekHrs", "CompTotal"],
+# read file
+df_schema = pd.read_csv(r'C:\Users\Dell\Desktop\ML\developer_survey_2019\survey_results_schema.csv')
+df_public = pd.read_csv(r'C:\Users\Dell\Desktop\ML\developer_survey_2019\survey_results_public.csv',
+                        usecols=["Respondent", "WorkWeekHrs", "CompTotal"],
                         index_col="Respondent")
 
 
-# usunięcie nulli
+# drop null
 df_public.dropna(inplace=True)
 
-# zmiana na typ int64
+# int64
 df_public = df_public.astype('int64', copy=False)
 print(df_public.dtypes)

@@ -1,18 +1,19 @@
 import pandas as pd
 
-# wczytanie kolumn
-df = pd.read_csv("train.tsv", delimiter='\t',
+# headers
+df = pd.read_csv(r'C:\Users\Dell\Desktop\ML\first-assignment-master\first-assignment-master\train.tsv', delimiter='\t',
                  names=["Price", "Number_Of_Rooms", "Area", "Floor_Number", "Address", "Description"])
 
-df2 = pd.read_csv("description.csv", delimiter=',')
+df2 = pd.read_csv(r'C:\Users\Dell\Documents\GitHub\Machine_Learning\Zestaw 1\description.csv', delimiter=',')
 
-# złączenie dataframe
-df = pd.merge(df, df2, left_on="Floor_Number", right_on="liczba", how="left")
+# merge dataframe
+df3 = pd.merge(df, df2, left_on="Floor_Number", right_on="liczba", how="inner")
 
-# stworzenie DataFrame z wybranymi kolumnami
-df3 = pd.DataFrame(df, columns=["Value", "Number_Of_Rooms", "Area", "Floor_Number", " opis", "Address", "Description"])
-
+#print(df3)
+#stworzenie DataFrame z wybranymi kolumnami
+df4 = pd.DataFrame(df3, columns=["Price", "Number_Of_Rooms", "Area", "Floor_Number", " opis", "Address", "Description"])
+print(df4)
 
 # zapisanie csv
 with open('out2.csv', 'w', encoding="utf-8") as csvfile:
-    df3.to_csv(csvfile, index=False, line_terminator='\n')
+    df4.to_csv(csvfile, index=False, line_terminator='\n')
